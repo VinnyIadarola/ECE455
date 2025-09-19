@@ -8,6 +8,5 @@
 cd $SLURM_SUBMIT_DIR
 
 
-host_name = $(hostname)
-echo "Hello from node $host_name"
+echo "Hello from node $(hostname)"
 
