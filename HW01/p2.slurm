@@ -10,15 +10,10 @@
 cd $SLURM_SUBMIT_DIR
 
 
-
 # load gcc for compiling c++ program
 module load gcc/13.2.0
 
-# clone
-git clone https://github.com/vinnyiadarola/ECE455.git
-
 # run
-cd ECE455/HW01
 g++ main.cpp -o main
 ./main
 
