@@ -4,15 +4,6 @@
 #include <random>
 #include <chrono>
 
-
-
-
-
-
-
-
-
-
 void multiply_block(
     const std::vector<std::vector<double>> &A,
     const std::vector<std::vector<double>> &B,
@@ -26,13 +17,6 @@ void multiply_block(
     }
 }
 
-
-
-
-
-
-
-
 int main() {
     const int N = 800;
     const int T = std::thread::hardware_concurrency() ?
@@ -40,7 +24,6 @@ int main() {
 
     std::vector<std::vector<double>> A(N, std::vector<double>(N));
     std::vector<std::vector<double>> B(N, std::vector<double>(N));
-    std::vector<std::vector<double>> C(N, std::vector<double>(N, 0.0));
     std::mt19937 rng(42);
     std::uniform_real_distribution<double> dist(0.0, 1.0);
 
@@ -51,6 +34,18 @@ int main() {
         for (auto &x : row)
             x = dist(rng);
 
+    {
+        std::vector<std::vector<double>> C(N, std::vector<double>(N, 0.0));
+        auto start_time = std::chrono::high_resolution_clock::now();
+        for (int row = 0; row < N; ++row) {
+            multiply_block(A, B, C, N, row);
+        }
+        auto end_time = std::chrono::high_resolution_clock::now();
+        printf("Single-threaded multiplication took %.6f s\n",
+               std::chrono::duration<double>(end_time - start_time).count());
+    }
+
+    std::vector<std::vector<double>> C(N, std::vector<double>(N, 0.0));
     std::vector<std::thread> threads;
     int chunk = N / T;
     auto start_time = std::chrono::high_resolution_clock::now();
