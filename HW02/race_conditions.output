@@ -1,0 +1,3 @@
+[No lock] counter = 25600000 (expected 25600000), 10.5864 ms
+[Mutex] counter = 25600000 (expected 25600000), 1489.7 ms
+[Atomic] counter = 25600000 (expected 25600000), 458.141 ms

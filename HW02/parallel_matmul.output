@@ -1,0 +1,2 @@
+Single-threaded multiplication took 0.652864 s
+Parallel multiplication took 0.353830 s

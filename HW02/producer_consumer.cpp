@@ -5,7 +5,7 @@
 #include <condition_variable>
 
 constexpr int MAX_ITEMS = 10;
-std::queue q;
+std::queue<int> q;
 std::mutex mtx;
 std::condition_variable cv;
 bool data_ready = false;
@@ -14,10 +14,10 @@ void producer() {
     
     for(int i = 0; i < 100; ++i) {
         std::unique_lock<std::mutex> lock(mtx);
-        cv.wait(lock, [] () -> int {return (int)q.size < MAX_ITEMS;});
+        cv.wait(lock, [] () -> int {return (int)q.size() < MAX_ITEMS;});
         q.push(i);
-        printf("Produced: %i\n", i);
         lock.unlock();
+        printf("Produced: %i\n", i);
         cv.notify_one();
     }
 
