@@ -1,0 +1,4 @@
+Threads: 1, Time: 0.034496 sec, Sum: 10000000.000000
+Threads: 2, Time: 0.017767 sec, Sum: 10000000.000000
+Threads: 4, Time: 0.009404 sec, Sum: 10000000.000000
+Threads: 8, Time: 0.006931 sec, Sum: 10000000.000000
