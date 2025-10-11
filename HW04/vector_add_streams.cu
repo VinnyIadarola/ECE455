@@ -42,7 +42,7 @@ int main() {
 
     // Async copy first half
     cudaMemcpyAsync(d_A, A, half_size, cudaMemcpyHostToDevice, stream1);
-    cudaMemcpyAsync(d_B, B, half_size, cudaMemcpyHostToDevice, streamP1);
+    cudaMemcpyAsync(d_B, B, half_size, cudaMemcpyHostToDevice, stream1);
 
     // Async copy second half
     cudaMemcpyAsync(d_A + half, A + half, half_size, cudaMemcpyHostToDevice, stream2);
