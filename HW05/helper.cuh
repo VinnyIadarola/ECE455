@@ -196,4 +196,3 @@ float measure_latency_mm_cuda(size_t m, size_t n, size_t p, size_t num_tests, si
     // Return average runtime per test (milliseconds)
     return time_ms / static_cast<float>(num_tests);
 }
-

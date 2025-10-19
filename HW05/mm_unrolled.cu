@@ -1,3 +1,19 @@
+#include "helper.cuh"
+#include <cuda_runtime.h>
+#include <iostream>
+#include <vector>
+#include <random>
+#include <cmath>
+#include <cstdlib>
+#include <cassert>
+#include <cstdint>
+
+#ifndef MAT_DIM
+#define MAT_DIM 512
+#endif
+
+/* ------------------------ CUDA implementation ------------------------ */
+
 // Unrolled kernel : perform 4 multiply - adds per iteration
 template <typename T>
 __global__ void mm_unrolled_kernel(T const* mat_1, T const* mat_2, T* mat_3,
@@ -29,14 +45,15 @@ __global__ void mm_unrolled_kernel(T const* mat_1, T const* mat_2, T* mat_3,
 int main()
 {
     const size_t num_tests{2};
-    assert(random_multiple_test_mm_cuda<int32_t>(num_tests));
-    assert(random_multiple_test_mm_cuda<float>(num_tests));
-    assert(random_multiple_test_mm_cuda<double>(num_tests));
+    size_t m{MAT_DIM}, n{MAT_DIM}, p{MAT_DIM};
+    assert(random_multiple_test_mm_cuda<int32_t>(num_tests, m, n, p));
+    assert(random_multiple_test_mm_cuda<float>(num_tests, m, n, p));
+    assert(random_multiple_test_mm_cuda<double>(num_tests, m, n, p));
     std::cout << "All tests passed !\n";
 
     const size_t num_measurement_tests{2};
     const size_t num_measurement_warmups{1};
-    size_t m{MAT_DIM}, n{MAT_DIM}, p{MAT_DIM};
+    m = MAT_DIM; n = MAT_DIM; p = MAT_DIM;
 
     float mm_cuda_int32_latency = measure_latency_mm_cuda<int32_t>(
         m, n, p, num_measurement_tests, num_measurement_warmups);
